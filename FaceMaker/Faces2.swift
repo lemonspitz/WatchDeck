@@ -6,6 +6,7 @@ enum Kind2: String {
     case classic = "Analog", sport = "Analog Sport", hybrid = "Hybrid", seconds = "Digital Seconds"
     case dashboard = "Dashboard", weather = "Weather", rings = "Activity Rings", lcd = "Retro LCD"
     case minimal = "Minimal Analog", orbit = "Orbit"
+    case styled = "Styled"      // faces 151-450: the category comes from styles3
 }
 
 struct Design2 {
@@ -20,6 +21,8 @@ struct Design2 {
     var font: String
     var variant: Int = 0
     var layout: Layout = .stack
+    var style = -1              // index into styles3 for faces 151-450
+    var category: String { style >= 0 ? styles3[style].category : kind.rawValue }
 }
 
 /// Value types (what live data a layer shows) and container data types (what a tap opens).
@@ -222,14 +225,14 @@ final class Builder {
     static func dateWidth(month: Bool) -> Int { 52 + 6 + 28 + (month ? 6 + 52 : 0) }
 
     /// Weekday, day of month and (optionally) month, starting at x.
-    func dateRow(x: Int, y: Int, month: Bool = true, font: String = "system", weekColor: RGB? = nil, outline: Bool = true) {
+    func dateRow(x: Int, y: Int, month: Bool = true, font: String = "system", weekColor: RGB? = nil, outline: Bool = true, ink: RGB? = nil) {
         let wk = labels(weekdays, 52, 26, weekColor ?? acc, font: font, outline: outline)
-        let dd = labels((0 ... 9).map(String.init), 14, 26, fg, font: font, outline: outline)
+        let dd = labels((0 ... 9).map(String.init), 14, 26, ink ?? fg, font: font, outline: outline)
         face.date += [sel(wk, x, y, VT.week, label: 2, show: 5),
                       sel(Array(dd[0 ... 3]), x + 58, y, VT.dayHi, label: 2, show: 1),
                       sel(dd, x + 72, y, VT.dayLo, label: 2, show: 3)]
         if month {
-            let mo = labels(months, 52, 26, fg, font: font, outline: outline)
+            let mo = labels(months, 52, 26, ink ?? fg, font: font, outline: outline)
             face.date.append(sel(mo, x + 92, y, VT.month, label: 2, show: 11))
         }
     }
@@ -283,16 +286,16 @@ final class Builder {
 
     enum Stat { case heart, steps, calories, battery, weather }
 
-    func statLayers(_ s: Stat, col x0: Int, width w: Int, y: Int) -> (Int, [Layer]) {
+    func statLayers(_ s: Stat, col x0: Int, width w: Int, y: Int, ink: RGB? = nil) -> (Int, [Layer]) {
         let cx = x0 + w / 2
         let iconRect = [cx - 10, y + 8, 20, 20]
         let textRect = [x0 + 4, y + 30, w - 8, 28]
         switch s {
-        case .heart: return (DT.heart, [icon("heart", iconRect), text(textRect, VT.heart, "72")])
-        case .steps: return (DT.activity, [icon("steps", iconRect), text(textRect, VT.steps, "8426")])
-        case .calories: return (DT.activity, [icon("flame", iconRect), text(textRect, VT.calories, "326")])
-        case .battery: return (DT.battery, [icon("bolt", iconRect), text(textRect, VT.battery, "88")])
-        case .weather: return (DT.weather, [weatherIcon(22, cx - 11, y + 7), text(textRect, VT.temperature, "24°")])
+        case .heart: return (DT.heart, [icon("heart", iconRect), text(textRect, VT.heart, "72", ink)])
+        case .steps: return (DT.activity, [icon("steps", iconRect), text(textRect, VT.steps, "8426", ink)])
+        case .calories: return (DT.activity, [icon("flame", iconRect), text(textRect, VT.calories, "326", ink)])
+        case .battery: return (DT.battery, [icon("bolt", iconRect), text(textRect, VT.battery, "88", ink)])
+        case .weather: return (DT.weather, [weatherIcon(22, cx - 11, y + 7), text(textRect, VT.temperature, "24°", ink)])
         }
     }
 
@@ -668,6 +671,8 @@ func build2(_ d: Design2, frame: Frame) -> (face: Face, preview: CGImage) {
         b.container([100, 10, 80, 44], DT.battery, [b.icon("bolt", [108, 22, 16, 18]), b.text([126, 18, 50, 28], VT.battery, "88")])
         b.container([100, 404, 80, 44], DT.heart, [b.icon("heart", [108, 416, 16, 16]), b.text([126, 410, 50, 28], VT.heart, "72")])
         b.hands(cx: cx, cy: cy, R: R, style: v % 2 == 0 ? 0 : 2, secondStyle: 1)
+    case .styled:
+        styles3[d.style].build(b, v)
     case .orbit:
         b.face.order = [0, 2, 3, 1]
         let cx = 140, cy = 214

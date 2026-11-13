@@ -608,7 +608,7 @@ let digitalDesigns: [Design2] = designs.map {
     Design2(title: $0.title, kind: .digital, bg: $0.bg, colors: $0.colors, dial: nil, fg: $0.fg, accent: $0.accent,
             second: $0.accent, font: $0.font, variant: 0, layout: $0.layout)
 }
-let allDesigns = digitalDesigns + designs2
+let allDesigns = digitalDesigns + designs2 + designs3
 
 let args = CommandLine.arguments
 guard args.count >= 2 else { print("usage: facemaker <output folder> [screen code or WxH] [design number]"); exit(2) }
@@ -627,7 +627,7 @@ for sc in screens where screenFilter == nil || screenFilter == sc.code || screen
     for (i, d) in allDesigns.enumerated() where only == nil || only == i + 1 {
         try autoreleasepool {
             let (face, preview) = build2(d, frame: frame)
-            total += try writeHWT(title: d.title, category: d.kind.rawValue, screen: sc.code, face: face, preview: preview,
+            total += try writeHWT(title: d.title, category: d.category, screen: sc.code, face: face, preview: preview,
                                   folder: folder, file: fileName(i + 1, d.title))
         }
     }

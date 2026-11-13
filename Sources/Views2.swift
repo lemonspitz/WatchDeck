@@ -221,10 +221,10 @@ struct FacesView: View {
                     Text("\(shownLibrary.count) of \(session.library.count)").font(.caption).foregroundStyle(.secondary)
                     Spacer()
                     Button { makeFaces() } label: {
-                        Label(making ? "Making faces…" : "Make 150 faces for \(targetSize)", systemImage: "wand.and.stars")
+                        Label(making ? "Making faces…" : "Make 500 faces for \(targetSize)", systemImage: "wand.and.stars")
                     }
                     .disabled(making)
-                    .help("Draws WatchDeck's 150 designs for this screen size on this Mac")
+                    .help("Draws WatchDeck's 500 designs for this screen size on this Mac")
                     Button { addFiles() } label: { Label("Add .hwt files…", systemImage: "plus") }
                     Button { addFolder() } label: { Label("Add folder…", systemImage: "folder.badge.plus") }
                     Button("Show folder") { NSWorkspace.shared.open(session.faceFolders.last ?? Storage.faces) }
@@ -249,7 +249,7 @@ struct FacesView: View {
                 }
                 if let makeError { Text(makeError).font(.caption).foregroundStyle(.orange) }
                 if session.library.isEmpty {
-                    Text("Press Make 150 faces to draw WatchDeck's designs for your watch, or add Huawei watch-face files (.hwt) to browse their designs here and install them with one click.")
+                    Text("Press Make 500 faces to draw WatchDeck's designs for your watch, or add Huawei watch-face files (.hwt) to browse their designs here and install them with one click.")
                         .foregroundStyle(.secondary)
                 } else {
                     LazyVGrid(columns: columns, alignment: .leading, spacing: 18) {

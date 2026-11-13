@@ -2,7 +2,7 @@
 
 A Mac app that controls Huawei and Honor watches and bands over Bluetooth, with no phone and no Huawei Health app.
 
-Made by **[@lemonspitz](https://github.com/lemonspitz)** · version 1.0
+Made by **[@lemonspitz](https://github.com/lemonspitz)** · version 1.1
 
 <img src="docs/app-icon.png" alt="WatchDeck icon" width="128">
 
@@ -12,7 +12,17 @@ Made by **[@lemonspitz](https://github.com/lemonspitz)** · version 1.0
 - **Health:** steps, calories, distance, heart rate and SpO₂ for today, 3 days or 7 days. Hover over a chart to read the exact value at any time.
 - **Sleep:** each night's deep and light sleep on a timeline, with nightly totals.
 - **Workouts:** every workout with its GPS route on a map, heart rate, speed or pace, splits, calories and climb. Hovering a chart shows where you were on the map at that moment. Export any workout as GPX for Strava, Komoot or Google Earth.
-- **Watch faces:** list, switch, rename and delete the faces on the watch, and install `.hwt` faces from your Mac. WatchDeck can draw its own **150 designs** (digital, analog, sport, hybrid, dashboard, weather, activity rings, retro LCD, minimal and orbit) for your watch's exact screen size.
+- **Watch faces:** list, switch, rename and delete the faces on the watch, and install `.hwt` faces from your Mac. WatchDeck can draw its own **500 designs** for your watch's exact screen size, in 45 styles:
+  - **Sporty:** clean faces with big slanted digits, one accent colour and a different typeface on every design (stacked, one-line, diagonal band, activity ring, racing stripes)
+  - **Tool watches:** pilot, diver, field, GMT and compass dials
+  - **Complications:** chronograph with live sub-dials, regulator, enamel moon-phase, skeleton movement
+  - **Dress and design:** railway, Bauhaus, sector, single-hand
+  - **Novelty:** radar sweep, orbiting planets, spinning vinyl record
+  - **Retro tech:** nixie tubes, flip clock, LED dot-matrix, 8-bit pixel, binary, terminal
+  - **Art and type:** neon sign, editorial typography, sideways, stencil camo, pop-art comic, chalkboard, blueprint, synthwave
+  - **Everyday:** digital, analog, sport, hybrid, dashboard, weather, activity rings, retro LCD, minimal and orbit
+
+  On round watches the analog dials fill the whole screen.
 - **Notifications, alarms and settings:** send notifications to the watch, set alarms, and change wrist, raise-to-wake, time format, do-not-disturb and more.
 - **GPS assist:** sends the Mac's position and exact time to the watch so its GPS locks faster.
 - Everything the watch sends is saved on your Mac, so your history stays even after the watch forgets it.
@@ -26,6 +36,14 @@ Made by **[@lemonspitz](https://github.com/lemonspitz)** · version 1.0
 The same designs drawn for every screen size:
 
 ![Faces for all screen sizes](docs/faces-all-sizes.png)
+
+A design from each of the 30 styles added in 1.1, on a round screen:
+
+![New face styles on a round watch](docs/new-faces-round.png)
+
+The 50 Sporty faces, on a Watch Fit:
+
+![Sporty faces](docs/sporty-faces.png)
 
 ## Supported watches
 
