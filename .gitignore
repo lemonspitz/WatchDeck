@@ -1,0 +1,6 @@
+build/
+Faces/
+.DS_Store
+# Real workout route of the author; not for publishing
+docs/workouts.png
+docs/icon-choices.png
